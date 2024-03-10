@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:wght@800&family=Be+Vietnam+Pro:wght@400;600;700;800&family=Cabin:wght@500&family=Fira+Code&family=Gabarito:wght@500&family=Montserrat:wght@600&family=Noto+Sans&family=Poppins&family=Roboto:wght@500&family=Space+Grotesk:wght@700&family=Varela+Round&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/8c58c6b849.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <nav>
+    <div id="topbar">
+      <h1 class="logo">
+        <a style="font-family: 'Barlow', sans-serif;" href="/">
+          Accel
+        </a>
+      </h1>
+      <div id="links">
+        <a class="link o" href="#">Docs</a>
+        <a class="link o" href="#start">Examples</a>
+        <a class="link o" href="#">Discord</a>
+        <a class="link" href="#">Github</a>
+      </div>
+      <button class="nav-button">Try it out</button>
+    </div>
+  </nav>
+  <div id="main">
+    <div id="side">
+      <button class="side-btn active" data-page="introduction">Introduction</button>
+      <li class="dropdown-parent">
+        <div class="side-btn-parent">
+          <button id="dropdown" class="side-btn" data-page="cdn-loading">CDN Loading <i class="fa-solid fa-angle-right"
+              id="angle-right" style="color: #ffffff;"></i></button>
+        </div>
+        <ul class="dropdown-items hidden">
+          <button class="side-btn" data-page="same-page-iframe">Same page iFrame</button>
+          <button class="side-btn" data-page="url-queries">URL Queries</button>
+        </ul>
+      </li>
+      <button class="side-btn" data-page="generated-btns">Generated Buttons</button>
+      <button class="side-btn" data-page="data">Save/Load Data</button>
+    </div>
+    <div id="docs" data-current="introduction">
+      <h1 class="docs-h1">
+        Welcome to the Accel docs! 👋
+      </h1>
+      <p class="docs-p">Feel free to navigate to the different pages on the side or continue reading!</p>
+      <h1 class="docs-h1" id="introduction">Introduction</h1>
+      <p class="docs-p">In these docs, we will be showing you how to use the services Accel provides. To start with, we
+        have CDN loading:</p>
+      <h1 id="cdn-loading">CDN Loading</h1>
+      <p>There are 3 main ways to use CDNs to load games. The first being via an iframe on the page, the second via url
+        queries, and the third via localstorage. We will be going over each of these in detail.</p>
+      <p>First and foremost, here are some good CDNs to use:</p>
+      <pre class="code-block">
+        <code class="language-html">
+    https://raw.githack.com/
+    https://gh.maple3142.workers.dev/
+    https://rawgitt.glitch.me/
+    You can also selfhost a CDN yourself
+    by using the repo:
+    https://github.com/albibos/rawgit2017!
+        </code>
+      </pre>
+      <h2 id="same-page-iframe">Same Page iFrame</h2>
+      <p>The same page iframe is quite self explanatory. Typically, this iframe is located on a popup or at the bottom
+        of the screen. When the user presses a button, the iframe will be made visible with the src set to the cdn.</p>
+      <iframe class="docs-frame" src="https://codepen.io/albibos/embed/xxewweq"></iframe>
+      <p>In the above example, we use a dialog element (the easiest way to make a popup) to create the popup. Then,
+        using a function, use the dialog.showModal() to show the popup, and set the src using the functions parameter.
+        Here is the JS: </p>
+      <pre class="code-block">
+        <code class="language-js">
+ function openFrame(id) {
+   dialog = document.getElementById("frame-dialog");
+   frame = document.getElementById("frame");
+   if (dialog.open) {
+     dialog.close();
+   } else {
+     dialog.showModal();
+     frame.src = 'https://raw.githack.com/WhoIsEv/relivedassets/main/' + id + '/index.html'; // you can use any cdn, this is just an example!!
+   }
+ }
+
+ function closedi() {
+   dialog = document.getElementById("frame-dialog");
+   dialog.close();
+ }
+        </code>
+        </pre>
+      <p>Please refer to the codepen example for anything you need.</p>
+      <h2 id='url-queries'>URL Queries</h2>
+      <p>A url query is a part of a url that assigns a value to a parameter. They are almost always a ?parameter=value.
+        For example, if you wanted to load a game from a url, you would use ?game=game-id. We will be making a
+        games.html example and loading the src in the iframe based on the query.</p>
+      <p>Here we have a simple iFrame: </p>
+      <pre class="code-block">
+ <code class="language-html">
+  &lt;iframe id="gameFrame" width="100%" height="600px" frameborder="0">&lt;/iframe>
+ </code>
+        </pre>
+      <p>And its corresponding js: </p>
+      <pre class="code-block">
+        <code class="language-js">
+ const gameId = new URLSearchParams(window.location.search).get('game');
+
+ // Set the iframe src based on the 'id' parameter
+ if (gameId) {
+     document.getElementById('gameFrame').src = `https://raw.githack.com/WhoIsEv/relivedassets/main/${gameId}/index.html`;
+ } else {
+     console.error('Missing game parameter.');
+ }
+        </code>
+      </pre>
+      <p>In the above js code we: get the game id parameter from the url and form a proper url for our src via it. If
+        the game id is not found, we log an error to the console. So, if the url is
+        https://example.game/whatever.html?game=2048, our iFrame will display the game 2048. So now, when you redirect to your iframe page with a query of ?game=id, it will load the cdn url with the game!</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
